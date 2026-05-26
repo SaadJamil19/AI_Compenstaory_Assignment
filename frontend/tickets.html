@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tickets - AI CRM</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">AI CRM</div>
+      <nav id="sidebar-nav"></nav>
+      <div id="role-badge" class="role-badge"></div>
+      <button id="logout-btn" class="btn btn-secondary logout-btn">Logout</button>
+    </aside>
+    <main class="main-content">
+      <div class="page-header">
+        <h1>Tickets</h1>
+        <p>Manage support tickets with AI categorization</p>
+      </div>
+      <div id="alert"></div>
+      <div class="toolbar">
+        <input type="text" id="search" placeholder="Search tickets...">
+        <select id="filter-status">
+          <option value="">All Statuses</option>
+          <option value="open">Open</option>
+          <option value="in_progress">In Progress</option>
+          <option value="resolved">Resolved</option>
+          <option value="closed">Closed</option>
+        </select>
+        <select id="filter-priority">
+          <option value="">All Priorities</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+          <option value="critical">Critical</option>
+        </select>
+        <select id="filter-agent"><option value="">All Agents</option></select>
+        <input type="date" id="date-from" title="Date from">
+        <input type="date" id="date-to" title="Date to">
+        <button class="btn btn-secondary" id="clear-filters">Clear Filters</button>
+        <button class="btn btn-primary" id="btn-add">Create Ticket</button>
+      </div>
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Customer</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Category</th>
+              <th>Sentiment</th>
+              <th>Agent</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tickets-tbody"></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <div id="modal" class="modal-overlay">
+    <div class="modal">
+      <h2>Create Ticket</h2>
+      <form id="ticket-form">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="title" required>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="description" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Customer</label>
+          <select id="customer_id" required></select>
+        </div>
+        <div class="form-group">
+          <label>Priority</label>
+          <select id="priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+            <option value="critical">Critical</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Assign Agent (optional)</label>
+          <select id="assigned_agent_id">
+            <option value="">Unassigned</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Create (AI will categorize)</button>
+          <button type="button" class="btn btn-secondary" id="modal-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    if (!requireAuth()) throw new Error('auth');
+    renderSidebar('tickets');
+
+    const modal = document.getElementById('modal');
+
+    async function loadTickets() {
+      const params = new URLSearchParams();
+      const search = document.getElementById('search').value;
+      const status = document.getElementById('filter-status').value;
+      const priority = document.getElementById('filter-priority').value;
+      const agent = document.getElementById('filter-agent').value;
+      const dateFrom = document.getElementById('date-from').value;
+      const dateTo = document.getElementById('date-to').value;
+      if (search) params.set('search', search);
+      if (status) params.set('status', status);
+      if (priority) params.set('priority', priority);
+      if (agent) params.set('assigned_agent_id', agent);
+      if (dateFrom) params.set('date_from', dateFrom);
+      if (dateTo) params.set('date_to', dateTo);
+      const q = params.toString() ? `?${params}` : '';
+      const tickets = await apiFetch(`/api/tickets${q}`);
+      const tbody = document.getElementById('tickets-tbody');
+      tbody.innerHTML = tickets.map((t) => `
+        <tr>
+          <td>#${t.id}</td>
+          <td>${escapeHTML(t.title)}</td>
+          <td>${escapeHTML(t.customer_name)}</td>
+          <td>${statusBadge(t.status)}</td>
+          <td>${priorityBadge(t.priority)}</td>
+          <td>${escapeHTML(t.category)}</td>
+          <td>${sentimentBadge(t.sentiment)}</td>
+          <td>${escapeHTML(t.assigned_agent_name || '-')}</td>
+          <td><a href="/ticket-detail.html?id=${t.id}" class="btn btn-sm btn-primary">View</a></td>
+        </tr>
+      `).join('') || '<tr><td colspan="9">No tickets found</td></tr>';
+    }
+
+    async function loadFormOptions() {
+      const [customers, agents] = await Promise.all([
+        apiFetch('/api/customers'),
+        apiFetch('/api/users/agents'),
+      ]);
+      document.getElementById('customer_id').innerHTML = customers
+        .map((c) => `<option value="${c.id}">${escapeHTML(c.full_name)}</option>`)
+        .join('');
+      document.getElementById('assigned_agent_id').innerHTML =
+        '<option value="">Unassigned</option>' +
+        agents.map((a) => `<option value="${a.id}">${escapeHTML(a.full_name)}</option>`).join('');
+      document.getElementById('filter-agent').innerHTML =
+        '<option value="">All Agents</option>' +
+        agents.map((a) => `<option value="${a.id}">${escapeHTML(a.full_name)}</option>`).join('');
+    }
+
+    document.getElementById('btn-add').onclick = async () => {
+      await loadFormOptions();
+      modal.classList.add('active');
+    };
+    document.getElementById('modal-cancel').onclick = () => modal.classList.remove('active');
+    document.getElementById('search').oninput = loadTickets;
+    document.getElementById('filter-status').onchange = loadTickets;
+    document.getElementById('filter-priority').onchange = loadTickets;
+    document.getElementById('filter-agent').onchange = loadTickets;
+    document.getElementById('date-from').onchange = loadTickets;
+    document.getElementById('date-to').onchange = loadTickets;
+    document.getElementById('clear-filters').onclick = () => {
+      ['search', 'filter-status', 'filter-priority', 'filter-agent', 'date-from', 'date-to'].forEach((id) => document.getElementById(id).value = '');
+      loadTickets();
+    };
+
+    document.getElementById('ticket-form').onsubmit = async (e) => {
+      e.preventDefault();
+      const agentVal = document.getElementById('assigned_agent_id').value;
+      const body = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value,
+        customer_id: parseInt(document.getElementById('customer_id').value),
+        priority: document.getElementById('priority').value,
+        assigned_agent_id: agentVal ? parseInt(agentVal) : null,
+      };
+      try {
+        const ticket = await apiFetch('/api/tickets', { method: 'POST', body: JSON.stringify(body) });
+        modal.classList.remove('active');
+        window.location.href = `/ticket-detail.html?id=${ticket.id}`;
+      } catch (err) {
+        showAlert('alert', err.message);
+      }
+    };
+
+    loadFormOptions().then(loadTickets);
+  </script>
+</body>
+</html>

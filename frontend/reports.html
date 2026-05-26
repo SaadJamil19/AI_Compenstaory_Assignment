@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - AI CRM</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
+  <div class="app-layout">
+    <aside class="sidebar"><div class="sidebar-brand">AI CRM</div><nav id="sidebar-nav"></nav><div id="role-badge" class="role-badge"></div><button id="logout-btn" class="btn btn-secondary logout-btn">Logout</button></aside>
+    <main class="main-content">
+      <div class="page-header"><h1>Reports</h1><p>Manager summary and performance view</p></div>
+      <div id="report"></div>
+    </main>
+  </div>
+  <script src="/js/api.js"></script><script src="/js/auth.js"></script><script src="/js/common.js"></script>
+  <script>
+    if (!requireAuth()) throw new Error('auth');
+    if (!isManager()) window.location.href = '/dashboard.html';
+    renderSidebar('reports');
+    async function loadReport() {
+      const r = await apiFetch('/api/reports/summary');
+      document.getElementById('report').innerHTML = `
+        <div class="stats-grid"><div class="stat-card"><div class="label">Average Resolution Hours</div><div class="value">${r.average_resolution_hours}</div></div></div>
+        <div class="charts-grid"><div class="chart-card"><h3>By Category</h3><canvas id="catChart"></canvas></div><div class="chart-card"><h3>By Priority</h3><canvas id="priChart"></canvas></div></div>
+        <div class="table-card section-card"><h3>Agent Performance</h3><table><thead><tr><th>Agent</th><th>Assigned</th><th>Resolved/Closed</th></tr></thead><tbody>${r.agent_performance.map((a) => `<tr><td>${escapeHTML(a.agent_name)}</td><td>${a.assigned_total}</td><td>${a.resolved_total}</td></tr>`).join('')}</tbody></table></div>
+        <div class="table-card section-card"><h3>Recent Resolved Tickets</h3><table><thead><tr><th>ID</th><th>Title</th><th>Resolved</th></tr></thead><tbody>${r.recent_resolved_tickets.map((t) => `<tr><td><a href="/ticket-detail.html?id=${t.id}">#${t.id}</a></td><td>${escapeHTML(t.title)}</td><td>${formatDate(t.resolved_at)}</td></tr>`).join('') || '<tr><td colspan="3">No resolved tickets</td></tr>'}</tbody></table></div>`;
+      new Chart(document.getElementById('catChart'), { type: 'doughnut', data: { labels: Object.keys(r.tickets_by_category), datasets: [{ data: Object.values(r.tickets_by_category), backgroundColor: ['#2563eb','#16a34a','#d97706','#dc2626','#64748b'] }] }, options: { plugins: { legend: { position: 'bottom' } } } });
+      new Chart(document.getElementById('priChart'), { type: 'bar', data: { labels: Object.keys(r.tickets_by_priority), datasets: [{ data: Object.values(r.tickets_by_priority), backgroundColor: '#2563eb' }] }, options: { plugins: { legend: { display: false } } } });
+    }
+    loadReport();
+  </script>
+</body>
+</html>

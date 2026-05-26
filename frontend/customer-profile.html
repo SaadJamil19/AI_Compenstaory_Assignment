@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Profile - AI CRM</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">AI CRM</div>
+      <nav id="sidebar-nav"></nav>
+      <div id="role-badge" class="role-badge"></div>
+      <button id="logout-btn" class="btn btn-secondary logout-btn">Logout</button>
+    </aside>
+    <main class="main-content">
+      <div class="page-header">
+        <h1 id="customer-name">Customer Profile</h1>
+        <p><a href="/customers.html">&larr; Back to Customers</a></p>
+      </div>
+      <div id="profile-content"></div>
+    </main>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    if (!requireAuth()) throw new Error('auth');
+    renderSidebar('customers');
+    const id = new URLSearchParams(window.location.search).get('id');
+    if (!id) window.location.href = '/customers.html';
+
+    async function loadProfile() {
+      const profile = await apiFetch(`/api/customers/${id}/profile`);
+      const c = profile.customer;
+      document.getElementById('customer-name').textContent = c.full_name;
+      document.getElementById('profile-content').innerHTML = `
+        <div class="detail-card">
+          <h3>Customer Details</h3>
+          <p><strong>Email:</strong> ${escapeHTML(c.email)}</p>
+          <p><strong>Phone:</strong> ${escapeHTML(c.phone || '-')}</p>
+          <p><strong>Company:</strong> ${escapeHTML(c.company || '-')}</p>
+          <p><strong>Date Added:</strong> ${formatDate(c.created_at)}</p>
+          ${profile.latest_ticket ? `<p><strong>Latest Ticket:</strong> ${statusBadge(profile.latest_ticket.status)} ${priorityBadge(profile.latest_ticket.priority)} <span class="badge">${escapeHTML(profile.latest_ticket.category)}</span> ${sentimentBadge(profile.latest_ticket.sentiment)}</p>` : ''}
+        </div>
+        <div class="table-card section-card">
+          <h3>Ticket History</h3>
+          <table><thead><tr><th>ID</th><th>Title</th><th>Status</th><th>Priority</th><th>Category</th><th>Sentiment</th><th>Agent</th><th>Created</th></tr></thead>
+          <tbody>${profile.tickets.map((t) => `
+            <tr><td><a href="/ticket-detail.html?id=${t.id}">#${t.id}</a></td><td>${escapeHTML(t.title)}</td><td>${statusBadge(t.status)}</td><td>${priorityBadge(t.priority)}</td><td>${escapeHTML(t.category)}</td><td>${sentimentBadge(t.sentiment)}</td><td>${escapeHTML(t.assigned_agent_name || '-')}</td><td>${formatDate(t.created_at)}</td></tr>
+          `).join('') || '<tr><td colspan="8">No tickets for this customer</td></tr>'}</tbody></table>
+        </div>
+        <div class="detail-card">
+          <h3>Communication / Activity History</h3>
+          ${profile.communication_history.map((h) => `
+            <div class="timeline-item">
+              <div><span class="badge">${escapeHTML(h.action_type)}</span> <a href="/ticket-detail.html?id=${h.ticket_id}">#${h.ticket_id} ${escapeHTML(h.ticket_title)}</a></div>
+              <div class="date">${escapeHTML(h.author)} - ${formatDate(h.created_at)}</div>
+              <p>${escapeHTML(h.message)}</p>
+            </div>
+          `).join('') || '<p>No communication history yet.</p>'}
+        </div>
+      `;
+    }
+    loadProfile().catch(console.error);
+  </script>
+</body>
+</html>

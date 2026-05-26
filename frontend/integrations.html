@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrations - AI CRM</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">AI CRM</div>
+      <nav id="sidebar-nav"></nav>
+      <div id="role-badge" class="role-badge"></div>
+      <button id="logout-btn" class="btn btn-secondary logout-btn">Logout</button>
+    </aside>
+    <main class="main-content">
+      <div class="page-header">
+        <h1>Integration Health Check</h1>
+        <p>Manager-only checks for Gemini and Telegram without exposing secrets</p>
+      </div>
+      <div id="alert"></div>
+      <div class="stats-grid" id="health-cards"></div>
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h3>Gemini AI Test</h3>
+          <p>Runs a sample support-ticket categorization and sentiment check.</p>
+          <button class="btn btn-primary" id="gemini-test">Generate Test AI Output</button>
+          <div id="gemini-result" class="result-box"></div>
+        </div>
+        <div class="detail-card">
+          <h3>Telegram Test</h3>
+          <p>Sends a real test message when Telegram keys are configured, otherwise logs a skipped result.</p>
+          <button class="btn btn-primary" id="telegram-test">Send Test Telegram Message</button>
+          <div id="telegram-result" class="result-box"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    if (!requireAuth()) throw new Error('auth');
+    if (!isManager()) window.location.href = '/dashboard.html';
+    renderSidebar('integrations');
+
+    async function loadHealth() {
+      const h = await apiFetch('/api/integrations/health');
+      document.getElementById('health-cards').innerHTML = `
+        <div class="stat-card"><div class="label">Gemini</div><div class="value status-value">${escapeHTML(h.gemini.status)}</div></div>
+        <div class="stat-card"><div class="label">Telegram</div><div class="value status-value">${escapeHTML(h.telegram.status)}</div></div>
+      `;
+    }
+
+    document.getElementById('gemini-test').onclick = async () => {
+      try {
+        const r = await apiFetch('/api/integrations/gemini-test', { method: 'POST' });
+        document.getElementById('gemini-result').innerHTML = `
+          <p><strong>Configured:</strong> ${r.configured ? 'Yes' : 'No'}</p>
+          <p><strong>Category:</strong> ${escapeHTML(r.category)}</p>
+          <p><strong>Sentiment:</strong> ${escapeHTML(r.sentiment)}</p>
+          <p>${escapeHTML(r.note)}</p>
+        `;
+      } catch (err) {
+        showAlert('alert', err.message);
+      }
+    };
+
+    document.getElementById('telegram-test').onclick = async () => {
+      try {
+        const r = await apiFetch('/api/integrations/telegram-test', { method: 'POST' });
+        document.getElementById('telegram-result').innerHTML = `
+          <p><strong>Configured:</strong> ${r.configured ? 'Yes' : 'No'}</p>
+          <p><strong>Status:</strong> ${escapeHTML(r.status)}</p>
+          <p><strong>Log ID:</strong> ${escapeHTML(r.notification_log_id)}</p>
+          <p>${escapeHTML(r.error_message || 'No error returned.')}</p>
+        `;
+      } catch (err) {
+        showAlert('alert', err.message);
+      }
+    };
+
+    loadHealth();
+  </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI CRM</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">AI CRM</div>
+      <nav id="sidebar-nav"></nav>
+      <div id="role-badge" class="role-badge"></div>
+      <button id="logout-btn" class="btn btn-secondary logout-btn">Logout</button>
+    </aside>
+    <main class="main-content">
+      <div class="page-header">
+        <h1>Dashboard</h1>
+        <p>Overview of ticket statistics</p>
+      </div>
+      <div class="stats-grid" id="stats-grid"></div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>Tickets by Status</h3>
+          <canvas id="statusChart" width="400" height="280"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Tickets by Priority</h3>
+          <canvas id="priorityChart" width="400" height="280"></canvas>
+        </div>
+      </div>
+      <div id="role-section"></div>
+    </main>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    if (!requireAuth()) throw new Error('auth');
+    renderSidebar('dashboard');
+
+    let statusChart = null;
+    let priorityChart = null;
+
+    async function loadDashboard() {
+      const stats = await apiFetch('/api/dashboard/stats');
+      document.getElementById('stats-grid').innerHTML = `
+        <div class="stat-card"><div class="label">Total Tickets</div><div class="value">${escapeHTML(stats.total_tickets)}</div></div>
+        <div class="stat-card"><div class="label">Open</div><div class="value">${escapeHTML(stats.open_tickets)}</div></div>
+        <div class="stat-card"><div class="label">In Progress</div><div class="value">${escapeHTML(stats.in_progress_tickets)}</div></div>
+        <div class="stat-card"><div class="label">Resolved Today</div><div class="value">${escapeHTML(stats.resolved_today)}</div></div>
+        <div class="stat-card critical"><div class="label">Critical</div><div class="value">${stats.critical_tickets}</div></div>
+        <div class="stat-card"><div class="label">Unassigned</div><div class="value">${escapeHTML(stats.unassigned_tickets)}</div></div>
+      `;
+
+      const byStatus = stats.tickets_by_status;
+      const ctx = document.getElementById('statusChart').getContext('2d');
+      if (statusChart) statusChart.destroy();
+      statusChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Open', 'In Progress', 'Resolved', 'Closed'],
+          datasets: [{
+            data: [
+              byStatus.open || 0,
+              byStatus.in_progress || 0,
+              byStatus.resolved || 0,
+              byStatus.closed || 0,
+            ],
+            backgroundColor: ['#3b82f6', '#f59e0b', '#22c55e', '#94a3b8'],
+          }],
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } },
+      });
+
+      const priority = stats.tickets_by_priority;
+      const pctx = document.getElementById('priorityChart').getContext('2d');
+      if (priorityChart) priorityChart.destroy();
+      priorityChart = new Chart(pctx, {
+        type: 'bar',
+        data: {
+          labels: ['Low', 'Medium', 'High', 'Critical'],
+          datasets: [{ data: [priority.low || 0, priority.medium || 0, priority.high || 0, priority.critical || 0], backgroundColor: ['#94a3b8', '#3b82f6', '#f97316', '#dc2626'] }],
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } },
+      });
+
+      const section = document.getElementById('role-section');
+      if (isManager()) {
+        section.innerHTML = `
+          <div class="table-card section-card">
+            <h3>Agent Workloads</h3>
+            <table><thead><tr><th>Agent</th><th>Open</th><th>In Progress</th><th>Critical</th><th>Total Assigned</th></tr></thead>
+            <tbody>${stats.agent_workloads.map((a) => `
+              <tr><td>${escapeHTML(a.agent_name)}</td><td>${a.open_count}</td><td>${a.in_progress_count}</td><td>${a.critical_count}</td><td>${a.total_assigned}</td></tr>
+            `).join('') || '<tr><td colspan="5">No agents found</td></tr>'}</tbody></table>
+          </div>`;
+      } else {
+        section.innerHTML = `
+          <div class="table-card section-card">
+            <h3>My Assigned Tickets</h3>
+            <table><thead><tr><th>ID</th><th>Title</th><th>Status</th><th>Priority</th><th>Created</th></tr></thead>
+            <tbody>${stats.my_assigned_tickets.map((t) => `
+              <tr><td>#${t.id}</td><td><a href="/ticket-detail.html?id=${t.id}">${escapeHTML(t.title)}</a></td><td>${statusBadge(t.status)}</td><td>${priorityBadge(t.priority)}</td><td>${formatDate(t.created_at)}</td></tr>
+            `).join('') || '<tr><td colspan="5">No assigned open tickets</td></tr>'}</tbody></table>
+          </div>`;
+      }
+    }
+
+    loadDashboard().catch(console.error);
+  </script>
+</body>
+</html>

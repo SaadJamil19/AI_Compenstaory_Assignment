@@ -1,0 +1,487 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R] /Count 9 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 3670 >>
+stream
+BT /F1 16 Tf 54 788 Td (AI-Enhanced CRM & Ticket Management System) Tj ET
+BT /F1 13 Tf 54 762 Td (1. Cover Page) Tj ET
+BT /F1 10 Tf 54 736 Td (Project Title: AI-Enhanced CRM & Ticket Management System) Tj ET
+BT /F1 10 Tf 54 722 Td (Course Name:) Tj ET
+BT /F1 10 Tf 54 708 Td (Instructor:) Tj ET
+BT /F1 10 Tf 54 694 Td (Submission Date: May 25, 2026) Tj ET
+BT /F1 10 Tf 54 674 Td (Team Members) Tj ET
+BT /F1 10 Tf 54 654 Td ( |  Name  |  Student ID  |  Responsibility  |) Tj ET
+BT /F1 10 Tf 54 640 Td ( | --- | --- | --- |) Tj ET
+BT /F1 10 Tf 54 626 Td ( |    |    |  Backend APIs, database, RBAC  |) Tj ET
+BT /F1 10 Tf 54 612 Td ( |    |    |  Frontend pages, UI testing, screenshots  |) Tj ET
+BT /F1 10 Tf 54 598 Td ( |    |    |  AI integration, Telegram, report/demo  |) Tj ET
+54 528 487 54 re S
+BT /F1 10 Tf 66 560 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 546 Td (Screenshot to insert: docs/screenshots/01_login.png) Tj ET
+BT /F1 10 Tf 54 510 Td (> Caption: Login page showing manager and agent demo credentials.) Tj ET
+BT /F1 13 Tf 54 490 Td (2. Executive Summary) Tj ET
+BT /F1 10 Tf 54 464 Td (The AI-Enhanced CRM & Ticket Management System is a web-based support platform inspired) Tj ET
+BT /F1 10 Tf 54 450 Td (by Zendesk and Freshdesk. It allows support agents and managers to manage customer) Tj ET
+BT /F1 10 Tf 54 436 Td (records, create and track support tickets, maintain ticket communication history, view) Tj ET
+BT /F1 10 Tf 54 422 Td (dashboards, use Gemini AI for support workflows, and send Telegram notifications for) Tj ET
+BT /F1 10 Tf 54 408 Td (important events.) Tj ET
+BT /F1 10 Tf 54 388 Td (The project satisfies the assignment requirements by providing persistent storage,) Tj ET
+BT /F1 10 Tf 54 374 Td (secure authentication, role-based access control, customer management, ticket) Tj ET
+BT /F1 10 Tf 54 360 Td (management, activity logs, dashboards, real AI features, and real messaging integration.) Tj ET
+BT /F1 10 Tf 54 346 Td (The application is intentionally built with a simple university-project stack: FastAPI,) Tj ET
+BT /F1 10 Tf 54 332 Td (SQLite, SQLAlchemy, HTML, CSS, and vanilla JavaScript. This keeps the project easy to) Tj ET
+BT /F1 10 Tf 54 318 Td (run, inspect, explain in viva, and extend.) Tj ET
+BT /F1 10 Tf 54 298 Td (The final demo should be recorded with real Gemini and Telegram keys configured.) Tj ET
+BT /F1 10 Tf 54 284 Td (Development fallback mode is included only so the system remains usable when secrets are) Tj ET
+BT /F1 10 Tf 54 270 Td (not available.) Tj ET
+BT /F1 13 Tf 54 250 Td (3. Project Objectives) Tj ET
+BT /F1 10 Tf 54 224 Td (The main objectives were:) Tj ET
+BT /F1 10 Tf 54 204 Td (- Build a mini CRM where managers and agents can log in securely.) Tj ET
+BT /F1 10 Tf 54 190 Td (- Allow managers to manage customer data and agent accounts.) Tj ET
+BT /F1 10 Tf 54 176 Td (- Allow tickets to be created, assigned, filtered, updated, resolved, and closed.) Tj ET
+BT /F1 10 Tf 54 162 Td (- Maintain a full ticket timeline containing comments, status changes, priority changes,) Tj ET
+BT /F1 10 Tf 54 148 Td (assignments, AI actions, and notifications.) Tj ET
+BT /F1 10 Tf 54 134 Td (- Show customer profile pages with full ticket and communication history.) Tj ET
+BT /F1 10 Tf 54 120 Td (- Use Google Gemini inside real workflows, not as a separate toy feature.) Tj ET
+BT /F1 10 Tf 54 106 Td (- Send Telegram messages to a real account/channel and persist delivery logs.) Tj ET
+BT /F1 10 Tf 54 92 Td (- Provide a dashboard and reports for managerial decision-making.) Tj ET
+BT /F1 10 Tf 54 78 Td (- Keep the application simple enough to be presented and defended in a student viva.) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 3570 >>
+stream
+BT /F1 13 Tf 54 788 Td (4. Technology Stack) Tj ET
+BT /F1 10 Tf 54 762 Td ( |  Layer  |  Technology  |  Reason  |) Tj ET
+BT /F1 10 Tf 54 748 Td ( | --- | --- | --- |) Tj ET
+BT /F1 10 Tf 54 734 Td ( |  Backend  |  FastAPI  |  Lightweight Python API framework with automatic OpenAPI docs) Tj ET
+BT /F1 10 Tf 54 720 Td (|) Tj ET
+BT /F1 10 Tf 54 706 Td ( |  Database  |  SQLite  |  Persistent local database, easy setup for demos  |) Tj ET
+BT /F1 10 Tf 54 692 Td ( |  ORM  |  SQLAlchemy  |  Structured model definitions and database queries  |) Tj ET
+BT /F1 10 Tf 54 678 Td ( |  Authentication  |  JWT + bcrypt  |  Secure token login and hashed passwords  |) Tj ET
+BT /F1 10 Tf 54 664 Td ( |  Frontend  |  HTML/CSS/Vanilla JS  |  No build step, easy static serving  |) Tj ET
+BT /F1 10 Tf 54 650 Td ( |  AI  |  Google Gemini  |  Categorization, sentiment, summaries, reply suggestions  |) Tj ET
+BT /F1 10 Tf 54 636 Td ( |  Messaging  |  Telegram Bot API  |  Real external message delivery  |) Tj ET
+BT /F1 10 Tf 54 622 Td ( |  Charts  |  Chart.js  |  Dashboard visual indicators  |) Tj ET
+BT /F1 10 Tf 54 608 Td ( |  Testing  |  pytest + FastAPI TestClient  |  Automated backend regression checks  |) Tj ET
+BT /F1 13 Tf 54 588 Td (5. System Architecture) Tj ET
+BT /F1 8 Tf 54 562 Td (    flowchart LR) Tj ET
+BT /F1 8 Tf 54 548 Td (      Browser[Browser: HTML/CSS/JS] --> Static[FastAPI Static File Mount]) Tj ET
+BT /F1 8 Tf 54 534 Td (      Browser --> API[FastAPI REST API]) Tj ET
+BT /F1 8 Tf 54 520 Td (      API --> Auth[JWT Auth + RBAC]) Tj ET
+BT /F1 8 Tf 54 506 Td (      API --> DB[\(SQLite + SQLAlchemy\)]) Tj ET
+BT /F1 8 Tf 54 492 Td (      API --> Gemini[Google Gemini API]) Tj ET
+BT /F1 8 Tf 54 478 Td (      API --> Telegram[Telegram Bot API]) Tj ET
+BT /F1 8 Tf 54 464 Td (      DB --> Users[Users]) Tj ET
+BT /F1 8 Tf 54 450 Td (      DB --> Customers[Customers]) Tj ET
+BT /F1 8 Tf 54 436 Td (      DB --> Tickets[Tickets]) Tj ET
+BT /F1 8 Tf 54 422 Td (      DB --> Comments[Comments]) Tj ET
+BT /F1 8 Tf 54 408 Td (      DB --> Activity[Ticket Activities]) Tj ET
+BT /F1 8 Tf 54 394 Td (      DB --> Notifications[Notification Logs]) Tj ET
+BT /F1 10 Tf 54 374 Td (The frontend calls /api/... endpoints using a shared fetch wrapper that attaches the JWT) Tj ET
+BT /F1 10 Tf 54 360 Td (bearer token. FastAPI validates the token, checks the role, executes database operations) Tj ET
+BT /F1 10 Tf 54 346 Td (through SQLAlchemy, and optionally calls Gemini or Telegram services.) Tj ET
+BT /F1 10 Tf 54 326 Td (Managers can see and manage all records. Agents can see unassigned tickets and tickets) Tj ET
+BT /F1 10 Tf 54 312 Td (assigned to them, add notes, and update permitted ticket information.) Tj ET
+54 242 487 54 re S
+BT /F1 10 Tf 66 274 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 260 Td (Screenshot to insert: docs/screenshots/02_dashboard_manager.png) Tj ET
+BT /F1 10 Tf 54 224 Td (> Caption: Dashboard showing summary cards, status chart, priority chart, and workload) Tj ET
+BT /F1 10 Tf 54 210 Td (section.) Tj ET
+BT /F1 13 Tf 54 190 Td (6. Authentication and Role-Based Access Control) Tj ET
+BT /F1 10 Tf 54 164 Td (The system uses bcrypt password hashes and JWT access tokens. The seeded demo users are:) Tj ET
+BT /F1 10 Tf 54 144 Td ( |  Role  |  Email  |  Password  |) Tj ET
+BT /F1 10 Tf 54 130 Td ( | --- | --- | --- |) Tj ET
+BT /F1 10 Tf 54 116 Td ( |  Manager  |  admin@test.com  |  admin123  |) Tj ET
+BT /F1 10 Tf 54 102 Td ( |  Agent  |  agent@test.com  |  agent123  |) Tj ET
+BT /F1 10 Tf 54 82 Td (Backend dependencies enforce access:) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 2984 >>
+stream
+BT /F1 10 Tf 54 788 Td (- get_current_user: validates JWT and active user status.) Tj ET
+BT /F1 10 Tf 54 774 Td (- require_manager: restricts manager-only endpoints.) Tj ET
+BT /F1 10 Tf 54 760 Td (- require_agent_or_manager: validates recognized application roles.) Tj ET
+BT /F1 10 Tf 54 746 Td (- Ticket access helper: prevents agents from accessing other agents' assigned tickets.) Tj ET
+BT /F1 10 Tf 54 726 Td (Manager-only capabilities include deleting customers, assigning tickets, viewing) Tj ET
+BT /F1 10 Tf 54 712 Td (notification logs, sending test notifications, viewing reports, and managing users.) Tj ET
+BT /F1 13 Tf 54 692 Td (7. Database Schema) Tj ET
+BT /F1 8 Tf 54 666 Td (    erDiagram) Tj ET
+BT /F1 8 Tf 54 652 Td (      USERS ||--o{ TICKETS : assigned) Tj ET
+BT /F1 8 Tf 54 638 Td (      USERS ||--o{ COMMENTS : writes) Tj ET
+BT /F1 8 Tf 54 624 Td (      USERS ||--o{ TICKET_ACTIVITIES : performs) Tj ET
+BT /F1 8 Tf 54 610 Td (      CUSTOMERS ||--o{ TICKETS : owns) Tj ET
+BT /F1 8 Tf 54 596 Td (      TICKETS ||--o{ COMMENTS : has) Tj ET
+BT /F1 8 Tf 54 582 Td (      TICKETS ||--o{ TICKET_ACTIVITIES : logs) Tj ET
+BT /F1 8 Tf 54 568 Td (      TICKETS ||--o{ NOTIFICATION_LOGS : records) Tj ET
+BT /F1 8 Tf 54 554 Td () Tj ET
+BT /F1 8 Tf 54 540 Td (      USERS {) Tj ET
+BT /F1 8 Tf 54 526 Td (        int id) Tj ET
+BT /F1 8 Tf 54 512 Td (        string email) Tj ET
+BT /F1 8 Tf 54 498 Td (        string hashed_password) Tj ET
+BT /F1 8 Tf 54 484 Td (        string full_name) Tj ET
+BT /F1 8 Tf 54 470 Td (        string role) Tj ET
+BT /F1 8 Tf 54 456 Td (        bool is_active) Tj ET
+BT /F1 8 Tf 54 442 Td (        datetime created_at) Tj ET
+BT /F1 8 Tf 54 428 Td (      }) Tj ET
+BT /F1 8 Tf 54 414 Td (      CUSTOMERS {) Tj ET
+BT /F1 8 Tf 54 400 Td (        int id) Tj ET
+BT /F1 8 Tf 54 386 Td (        string full_name) Tj ET
+BT /F1 8 Tf 54 372 Td (        string email) Tj ET
+BT /F1 8 Tf 54 358 Td (        string phone) Tj ET
+BT /F1 8 Tf 54 344 Td (        string company) Tj ET
+BT /F1 8 Tf 54 330 Td (        datetime created_at) Tj ET
+BT /F1 8 Tf 54 316 Td (      }) Tj ET
+BT /F1 8 Tf 54 302 Td (      TICKETS {) Tj ET
+BT /F1 8 Tf 54 288 Td (        int id) Tj ET
+BT /F1 8 Tf 54 274 Td (        string title) Tj ET
+BT /F1 8 Tf 54 260 Td (        text description) Tj ET
+BT /F1 8 Tf 54 246 Td (        string status) Tj ET
+BT /F1 8 Tf 54 232 Td (        string priority) Tj ET
+BT /F1 8 Tf 54 218 Td (        string category) Tj ET
+BT /F1 8 Tf 54 204 Td (        string sentiment) Tj ET
+BT /F1 8 Tf 54 190 Td (        text ai_summary) Tj ET
+BT /F1 8 Tf 54 176 Td (        text ai_suggested_reply) Tj ET
+BT /F1 8 Tf 54 162 Td (        int customer_id) Tj ET
+BT /F1 8 Tf 54 148 Td (        int assigned_agent_id) Tj ET
+BT /F1 8 Tf 54 134 Td (        datetime created_at) Tj ET
+BT /F1 8 Tf 54 120 Td (        datetime resolved_at) Tj ET
+BT /F1 8 Tf 54 106 Td (      }) Tj ET
+BT /F1 8 Tf 54 92 Td (      COMMENTS {) Tj ET
+BT /F1 8 Tf 54 78 Td (        int id) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 2972 >>
+stream
+BT /F1 8 Tf 54 788 Td (        int ticket_id) Tj ET
+BT /F1 8 Tf 54 774 Td (        int user_id) Tj ET
+BT /F1 8 Tf 54 760 Td (        text body) Tj ET
+BT /F1 8 Tf 54 746 Td (        datetime created_at) Tj ET
+BT /F1 8 Tf 54 732 Td (      }) Tj ET
+BT /F1 8 Tf 54 718 Td (      TICKET_ACTIVITIES {) Tj ET
+BT /F1 8 Tf 54 704 Td (        int id) Tj ET
+BT /F1 8 Tf 54 690 Td (        int ticket_id) Tj ET
+BT /F1 8 Tf 54 676 Td (        int user_id) Tj ET
+BT /F1 8 Tf 54 662 Td (        string action_type) Tj ET
+BT /F1 8 Tf 54 648 Td (        text message) Tj ET
+BT /F1 8 Tf 54 634 Td (        string old_value) Tj ET
+BT /F1 8 Tf 54 620 Td (        string new_value) Tj ET
+BT /F1 8 Tf 54 606 Td (        bool is_internal) Tj ET
+BT /F1 8 Tf 54 592 Td (        datetime created_at) Tj ET
+BT /F1 8 Tf 54 578 Td (      }) Tj ET
+BT /F1 8 Tf 54 564 Td (      NOTIFICATION_LOGS {) Tj ET
+BT /F1 8 Tf 54 550 Td (        int id) Tj ET
+BT /F1 8 Tf 54 536 Td (        int ticket_id) Tj ET
+BT /F1 8 Tf 54 522 Td (        string platform) Tj ET
+BT /F1 8 Tf 54 508 Td (        string event_type) Tj ET
+BT /F1 8 Tf 54 494 Td (        text message) Tj ET
+BT /F1 8 Tf 54 480 Td (        string status) Tj ET
+BT /F1 8 Tf 54 466 Td (        text error_message) Tj ET
+BT /F1 8 Tf 54 452 Td (        datetime sent_at) Tj ET
+BT /F1 8 Tf 54 438 Td (      }) Tj ET
+BT /F1 11 Tf 54 418 Td (Table Explanations) Tj ET
+BT /F1 10 Tf 54 392 Td (users stores login accounts, roles, active status, and bcrypt password hashes.) Tj ET
+BT /F1 10 Tf 54 378 Td (customers stores CRM contact details such as name, email, phone, and company.) Tj ET
+BT /F1 10 Tf 54 364 Td (tickets stores support issues, status, priority, AI category/sentiment, summaries,) Tj ET
+BT /F1 10 Tf 54 350 Td (suggested replies, and assignment.) Tj ET
+BT /F1 10 Tf 54 336 Td (comments stores agent and manager notes on tickets.) Tj ET
+BT /F1 10 Tf 54 322 Td (ticket_activities stores the full changelog, including ticket creation, comments, status) Tj ET
+BT /F1 10 Tf 54 308 Td (changes, priority changes, assignment changes, AI updates, and notification actions.) Tj ET
+BT /F1 10 Tf 54 294 Td (notification_logs stores Telegram delivery attempts with sent, failed, or skipped) Tj ET
+BT /F1 10 Tf 54 280 Td (status.) Tj ET
+BT /F1 13 Tf 54 260 Td (8. Customer Management) Tj ET
+BT /F1 10 Tf 54 234 Td (Managers can create, edit, view, and delete customers. Agents can view customers to link) Tj ET
+BT /F1 10 Tf 54 220 Td (tickets but cannot perform destructive customer actions. The customer profile page) Tj ET
+BT /F1 10 Tf 54 206 Td (shows:) Tj ET
+BT /F1 10 Tf 54 186 Td (- Customer name, email, phone, company, and date added.) Tj ET
+BT /F1 10 Tf 54 172 Td (- Full ticket history.) Tj ET
+BT /F1 10 Tf 54 158 Td (- Latest ticket status, priority, category, and sentiment.) Tj ET
+BT /F1 10 Tf 54 144 Td (- Communication and activity history across all tickets.) Tj ET
+BT /F1 10 Tf 54 130 Td (- Direct links to each ticket detail page.) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 2452 >>
+stream
+54 738 487 54 re S
+BT /F1 10 Tf 66 770 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 756 Td (Screenshot to insert: docs/screenshots/03_customers.png) Tj ET
+BT /F1 10 Tf 54 720 Td (> Caption: Customer list with search and profile action.) Tj ET
+54 650 487 54 re S
+BT /F1 10 Tf 66 682 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 668 Td (Screenshot to insert: docs/screenshots/04_customer_profile.png) Tj ET
+BT /F1 10 Tf 54 632 Td (> Caption: Customer profile showing full ticket history and communication timeline.) Tj ET
+BT /F1 13 Tf 54 612 Td (9. Ticket Management) Tj ET
+BT /F1 10 Tf 54 586 Td (Tickets can be created with a title, description, customer, priority, and optional) Tj ET
+BT /F1 10 Tf 54 572 Td (assigned agent. Ticket list filters include:) Tj ET
+BT /F1 10 Tf 54 552 Td (- Status) Tj ET
+BT /F1 10 Tf 54 538 Td (- Priority) Tj ET
+BT /F1 10 Tf 54 524 Td (- Assigned agent) Tj ET
+BT /F1 10 Tf 54 510 Td (- Date from) Tj ET
+BT /F1 10 Tf 54 496 Td (- Date to) Tj ET
+BT /F1 10 Tf 54 482 Td (- Search text) Tj ET
+BT /F1 10 Tf 54 462 Td (Ticket detail pages show the description, customer, status, priority, AI category, AI) Tj ET
+BT /F1 10 Tf 54 448 Td (sentiment, AI summary, AI reply suggestion, and a full activity timeline.) Tj ET
+BT /F1 10 Tf 54 428 Td (The activity timeline records:) Tj ET
+BT /F1 10 Tf 54 408 Td (- Created) Tj ET
+BT /F1 10 Tf 54 394 Td (- Comment/internal note) Tj ET
+BT /F1 10 Tf 54 380 Td (- Status change) Tj ET
+BT /F1 10 Tf 54 366 Td (- Priority change) Tj ET
+BT /F1 10 Tf 54 352 Td (- Assignment change) Tj ET
+BT /F1 10 Tf 54 338 Td (- AI update) Tj ET
+BT /F1 10 Tf 54 324 Td (- Notification) Tj ET
+54 254 487 54 re S
+BT /F1 10 Tf 66 286 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 272 Td (Screenshot to insert: docs/screenshots/05_tickets_filters.png) Tj ET
+BT /F1 10 Tf 54 236 Td (> Caption: Tickets list with status, priority, agent, date, and search filters.) Tj ET
+54 166 487 54 re S
+BT /F1 10 Tf 66 198 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 184 Td (Screenshot to insert: docs/screenshots/06_ticket_detail_timeline.png) Tj ET
+BT /F1 10 Tf 54 148 Td (> Caption: Ticket detail page with AI fields and full activity timeline.) Tj ET
+BT /F1 13 Tf 54 128 Td (10. Dashboard and Reports) Tj ET
+BT /F1 10 Tf 54 102 Td (The dashboard provides summary statistics and visual indicators:) Tj ET
+BT /F1 10 Tf 54 82 Td (- Total tickets) Tj ET
+BT /F1 10 Tf 54 68 Td (- Open tickets) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 15 0 R >>
+endobj
+15 0 obj
+<< /Length 2908 >>
+stream
+BT /F1 10 Tf 54 788 Td (- In progress tickets) Tj ET
+BT /F1 10 Tf 54 774 Td (- Resolved today) Tj ET
+BT /F1 10 Tf 54 760 Td (- Critical tickets) Tj ET
+BT /F1 10 Tf 54 746 Td (- Unassigned tickets) Tj ET
+BT /F1 10 Tf 54 732 Td (- Tickets by status chart) Tj ET
+BT /F1 10 Tf 54 718 Td (- Tickets by priority chart) Tj ET
+BT /F1 10 Tf 54 698 Td (Managers see agent-wise workload data, including open count, in-progress count, critical) Tj ET
+BT /F1 10 Tf 54 684 Td (count, and total assigned. Agents see their own assigned open/in-progress tickets.) Tj ET
+BT /F1 10 Tf 54 664 Td (The reports page provides manager-level breakdowns by category, status, priority, agent) Tj ET
+BT /F1 10 Tf 54 650 Td (performance, average resolution time, and recent resolved tickets.) Tj ET
+54 580 487 54 re S
+BT /F1 10 Tf 66 612 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 598 Td (Screenshot to insert: docs/screenshots/12_reports.png) Tj ET
+BT /F1 10 Tf 54 562 Td (> Caption: Manager reports page with category/priority charts and agent performance) Tj ET
+BT /F1 10 Tf 54 548 Td (table.) Tj ET
+BT /F1 13 Tf 54 528 Td (11. AI Integration) Tj ET
+BT /F1 10 Tf 54 502 Td (Google Gemini is integrated into real ticket workflows.) Tj ET
+BT /F1 11 Tf 54 482 Td (11.1 Ticket Categorization and Sentiment) Tj ET
+BT /F1 10 Tf 54 456 Td (On ticket creation, the backend sends the title and description to Gemini and asks for) Tj ET
+BT /F1 10 Tf 54 442 Td (strict JSON:) Tj ET
+BT /F1 8 Tf 54 422 Td (    {) Tj ET
+BT /F1 8 Tf 54 408 Td (      "category": "billing",) Tj ET
+BT /F1 8 Tf 54 394 Td (      "sentiment": "frustrated") Tj ET
+BT /F1 8 Tf 54 380 Td (    }) Tj ET
+BT /F1 10 Tf 54 360 Td (The system validates the returned category and sentiment before saving. Accepted) Tj ET
+BT /F1 10 Tf 54 346 Td (categories are billing, technical, account, shipping, and general. Accepted sentiments) Tj ET
+BT /F1 10 Tf 54 332 Td (are positive, neutral, negative, and frustrated.) Tj ET
+54 262 487 54 re S
+BT /F1 10 Tf 66 294 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 280 Td (Screenshot to insert: docs/screenshots/07_ai_category_sentiment.png) Tj ET
+BT /F1 10 Tf 54 244 Td (> Caption: Ticket detail showing AI category and sentiment after ticket creation.) Tj ET
+BT /F1 11 Tf 54 224 Td (11.2 AI Reply Suggestion) Tj ET
+BT /F1 10 Tf 54 198 Td (Agents can generate a professional response draft using ticket title, description,) Tj ET
+BT /F1 10 Tf 54 184 Td (customer name, comments, category, sentiment, status, and priority. The latest) Tj ET
+BT /F1 10 Tf 54 170 Td (suggestion is saved in the ticket and can be copied into the comment box.) Tj ET
+54 100 487 54 re S
+BT /F1 10 Tf 66 132 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 118 Td (Screenshot to insert: docs/screenshots/08_ai_reply_suggestion.png) Tj ET
+BT /F1 10 Tf 54 82 Td (> Caption: AI-generated reply suggestion displayed on the ticket detail page.) Tj ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 17 0 R >>
+endobj
+17 0 obj
+<< /Length 2851 >>
+stream
+BT /F1 11 Tf 54 788 Td (11.3 AI Resolution Summary) Tj ET
+BT /F1 10 Tf 54 762 Td (When a ticket is marked resolved, Gemini generates a concise summary and stores it in) Tj ET
+BT /F1 10 Tf 54 748 Td (ai_summary. This summary remains visible without another API call.) Tj ET
+54 678 487 54 re S
+BT /F1 10 Tf 66 710 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 696 Td (Screenshot to insert: docs/screenshots/09_ai_summary_resolved.png) Tj ET
+BT /F1 10 Tf 54 660 Td (> Caption: AI resolution summary saved after changing ticket status to resolved.) Tj ET
+BT /F1 11 Tf 54 640 Td (11.4 AI Escalation) Tj ET
+BT /F1 10 Tf 54 614 Td (The system checks whether a frustrated or urgent ticket should be escalated. If) Tj ET
+BT /F1 10 Tf 54 600 Td (recommended, priority can be upgraded and the activity timeline records the reason.) Tj ET
+BT /F1 10 Tf 54 586 Td (Critical escalation can also trigger a Telegram notification.) Tj ET
+BT /F1 11 Tf 54 566 Td (11.5 Error Handling) Tj ET
+BT /F1 10 Tf 54 540 Td (If GEMINI_API_KEY is missing or Gemini fails, the app stores safe fallback values. This) Tj ET
+BT /F1 10 Tf 54 526 Td (is useful for development, but the final recorded demo should use a real key and show) Tj ET
+BT /F1 10 Tf 54 512 Td (real AI output.) Tj ET
+BT /F1 13 Tf 54 492 Td (12. Messaging Integration) Tj ET
+BT /F1 10 Tf 54 466 Td (Telegram Bot API is used for real external notifications. Notifications are triggered) Tj ET
+BT /F1 10 Tf 54 452 Td (for:) Tj ET
+BT /F1 10 Tf 54 432 Td (- New ticket created) Tj ET
+BT /F1 10 Tf 54 418 Td (- Critical ticket created or escalated) Tj ET
+BT /F1 10 Tf 54 404 Td (- Ticket resolved) Tj ET
+BT /F1 10 Tf 54 390 Td (- Manual test notification from the manager-only integration/notification pages) Tj ET
+BT /F1 10 Tf 54 370 Td (Every attempt is stored in notification_logs with:) Tj ET
+BT /F1 10 Tf 54 350 Td (- Platform) Tj ET
+BT /F1 10 Tf 54 336 Td (- Event type) Tj ET
+BT /F1 10 Tf 54 322 Td (- Message) Tj ET
+BT /F1 10 Tf 54 308 Td (- Status: sent, failed, or skipped) Tj ET
+BT /F1 10 Tf 54 294 Td (- Error message if available) Tj ET
+BT /F1 10 Tf 54 280 Td (- Sent timestamp) Tj ET
+BT /F1 10 Tf 54 260 Td (If Telegram is missing, the notification is logged as skipped and the application) Tj ET
+BT /F1 10 Tf 54 246 Td (continues running.) Tj ET
+54 176 487 54 re S
+BT /F1 10 Tf 66 208 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 194 Td (Screenshot to insert: docs/screenshots/10_notifications.png) Tj ET
+BT /F1 10 Tf 54 158 Td (> Caption: Notification log showing sent/skipped/failed Telegram attempts.) Tj ET
+54 88 487 54 re S
+BT /F1 10 Tf 66 120 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 106 Td (Screenshot to insert: docs/screenshots/13_telegram_received_message.png) Tj ET
+BT /F1 10 Tf 54 70 Td (> Caption: Real Telegram chat/channel showing a received CRM notification.) Tj ET
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 19 0 R >>
+endobj
+19 0 obj
+<< /Length 2907 >>
+stream
+BT /F1 13 Tf 54 788 Td (13. Integration Health Check) Tj ET
+BT /F1 10 Tf 54 762 Td (A manager-only Integration Health Check page verifies final-demo readiness:) Tj ET
+BT /F1 10 Tf 54 742 Td (- Gemini configured or missing) Tj ET
+BT /F1 10 Tf 54 728 Td (- Telegram configured or missing) Tj ET
+BT /F1 10 Tf 54 714 Td (- Test AI categorization and sentiment output) Tj ET
+BT /F1 10 Tf 54 700 Td (- Test Telegram message delivery) Tj ET
+BT /F1 10 Tf 54 680 Td (This page never displays secret values. It only shows configured/missing status and) Tj ET
+BT /F1 10 Tf 54 666 Td (generated test results.) Tj ET
+54 596 487 54 re S
+BT /F1 10 Tf 66 628 Td (Screenshot to be inserted) Tj ET
+BT /F1 8 Tf 66 614 Td (Screenshot to insert: docs/screenshots/11_integration_health.png) Tj ET
+BT /F1 10 Tf 54 578 Td (> Caption: Integration Health Check page after real Gemini and Telegram keys are) Tj ET
+BT /F1 10 Tf 54 564 Td (configured.) Tj ET
+BT /F1 13 Tf 54 544 Td (14. Testing) Tj ET
+BT /F1 10 Tf 54 518 Td (Automated tests are included in backend/tests/test_core.py. They verify:) Tj ET
+BT /F1 10 Tf 54 498 Td (- Login returns a JWT token.) Tj ET
+BT /F1 10 Tf 54 484 Td (- Customer CRUD works.) Tj ET
+BT /F1 10 Tf 54 470 Td (- Ticket creation stores AI fallback category/sentiment and activity.) Tj ET
+BT /F1 10 Tf 54 456 Td (- Dashboard stats endpoint works.) Tj ET
+BT /F1 10 Tf 54 436 Td (Run tests:) Tj ET
+BT /F1 8 Tf 54 416 Td (    cd backend) Tj ET
+BT /F1 8 Tf 54 402 Td (    pytest) Tj ET
+BT /F1 10 Tf 54 382 Td (Manual QA steps are documented in docs/QA_CHECKLIST.md and should be completed before) Tj ET
+BT /F1 10 Tf 54 368 Td (submission.) Tj ET
+BT /F1 13 Tf 54 348 Td (15. Security and Submission Hygiene) Tj ET
+BT /F1 10 Tf 54 322 Td (The project avoids committing secrets and generated files. .gitignore excludes:) Tj ET
+BT /F1 10 Tf 54 302 Td (- .env) Tj ET
+BT /F1 10 Tf 54 288 Td (- *.db) Tj ET
+BT /F1 10 Tf 54 274 Td (- crm.db) Tj ET
+BT /F1 10 Tf 54 260 Td (- venv/) Tj ET
+BT /F1 10 Tf 54 246 Td (- pycache/) Tj ET
+BT /F1 10 Tf 54 232 Td (- .pytest_cache/) Tj ET
+BT /F1 10 Tf 54 218 Td (- node_modules/) Tj ET
+BT /F1 10 Tf 54 198 Td (Passwords are stored using bcrypt hashes. JWT tokens are required for protected APIs.) Tj ET
+BT /F1 10 Tf 54 184 Td (Manager-only frontend links are hidden from agents, and backend endpoints also enforce) Tj ET
+BT /F1 10 Tf 54 170 Td (manager-only access.) Tj ET
+BT /F1 13 Tf 54 150 Td (16. Challenges and Learnings) Tj ET
+BT /F1 10 Tf 54 124 Td (The main challenge was making the application complete without over-engineering it.) Tj ET
+BT /F1 10 Tf 54 110 Td (Role-based access had to be enforced on the backend, not only hidden in the UI. AI and) Tj ET
+BT /F1 10 Tf 54 96 Td (Telegram integrations also needed graceful fallback behavior so the app could run in a) Tj ET
+BT /F1 10 Tf 54 82 Td (development environment while still supporting a real final demo.) Tj ET
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 21 0 R >>
+endobj
+21 0 obj
+<< /Length 2865 >>
+stream
+BT /F1 10 Tf 54 788 Td (Key learnings:) Tj ET
+BT /F1 10 Tf 54 768 Td (- External service integration must be observable through logs and health checks.) Tj ET
+BT /F1 10 Tf 54 754 Td (- Activity timelines are more useful than comments alone because they explain how a) Tj ET
+BT /F1 10 Tf 54 740 Td (ticket changed.) Tj ET
+BT /F1 10 Tf 54 726 Td (- Storing AI outputs is important for auditability and repeatability.) Tj ET
+BT /F1 10 Tf 54 712 Td (- Backend RBAC is necessary even when the frontend hides buttons.) Tj ET
+BT /F1 10 Tf 54 698 Td (- A submission needs documentation, QA evidence, screenshots, and cleanup checks, not) Tj ET
+BT /F1 10 Tf 54 684 Td (only working code.) Tj ET
+BT /F1 13 Tf 54 664 Td (17. Work Division) Tj ET
+BT /F1 10 Tf 54 638 Td ( |  Member  |  Work  |) Tj ET
+BT /F1 10 Tf 54 624 Td ( | --- | --- |) Tj ET
+BT /F1 10 Tf 54 610 Td ( |    |  FastAPI routers, database models, authentication, RBAC  |) Tj ET
+BT /F1 10 Tf 54 596 Td ( |    |  Frontend pages, dashboard, reports, responsive UI  |) Tj ET
+BT /F1 10 Tf 54 582 Td ( |    |  Gemini prompts, Telegram setup, test evidence, report  |) Tj ET
+BT /F1 13 Tf 54 562 Td (18. Final Demo Script) Tj ET
+BT /F1 10 Tf 54 536 Td (1. Open the login page and log in as manager.) Tj ET
+BT /F1 10 Tf 54 522 Td (2. Open Integration Health Check and show Gemini/Telegram configured.) Tj ET
+BT /F1 10 Tf 54 508 Td (3. Send test Telegram message and show the real Telegram chat.) Tj ET
+BT /F1 10 Tf 54 494 Td (4. Create a customer.) Tj ET
+BT /F1 10 Tf 54 480 Td (5. Create a ticket for that customer.) Tj ET
+BT /F1 10 Tf 54 466 Td (6. Show AI category and sentiment on the ticket detail page.) Tj ET
+BT /F1 10 Tf 54 452 Td (7. Assign the ticket to an agent.) Tj ET
+BT /F1 10 Tf 54 438 Td (8. Add an internal note.) Tj ET
+BT /F1 10 Tf 54 424 Td (9. Change priority to critical and show notification log/Telegram message.) Tj ET
+BT /F1 10 Tf 54 410 Td (10. Generate AI reply suggestion.) Tj ET
+BT /F1 10 Tf 54 396 Td (11. Resolve the ticket and show saved AI summary.) Tj ET
+BT /F1 10 Tf 54 382 Td (12. Open customer profile and show ticket history.) Tj ET
+BT /F1 10 Tf 54 368 Td (13. Open dashboard, reports, users, and notification log.) Tj ET
+BT /F1 10 Tf 54 354 Td (14. Log in as agent and show restricted view.) Tj ET
+BT /F1 13 Tf 54 334 Td (19. References) Tj ET
+BT /F1 10 Tf 54 308 Td (- FastAPI documentation: https://fastapi.tiangolo.com/) Tj ET
+BT /F1 10 Tf 54 294 Td (- SQLAlchemy documentation: https://docs.sqlalchemy.org/) Tj ET
+BT /F1 10 Tf 54 280 Td (- Pydantic documentation: https://docs.pydantic.dev/) Tj ET
+BT /F1 10 Tf 54 266 Td (- Google Gemini documentation: https://ai.google.dev/) Tj ET
+BT /F1 10 Tf 54 252 Td (- Telegram Bot API documentation: https://core.telegram.org/bots/api) Tj ET
+BT /F1 10 Tf 54 238 Td (- Chart.js documentation: https://www.chartjs.org/docs/latest/) Tj ET
+endstream
+endobj
+xref
+0 22
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000169 00000 n 
+0000000239 00000 n 
+0000000365 00000 n 
+0000004087 00000 n 
+0000004213 00000 n 
+0000007835 00000 n 
+0000007961 00000 n 
+0000010997 00000 n 
+0000011125 00000 n 
+0000014150 00000 n 
+0000014278 00000 n 
+0000016783 00000 n 
+0000016911 00000 n 
+0000019872 00000 n 
+0000020000 00000 n 
+0000022904 00000 n 
+0000023032 00000 n 
+0000025992 00000 n 
+0000026120 00000 n 
+trailer
+<< /Size 22 /Root 1 0 R >>
+startxref
+29038
+%%EOF

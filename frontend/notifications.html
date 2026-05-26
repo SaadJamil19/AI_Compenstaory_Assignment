@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications - AI CRM</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
+  <div class="app-layout">
+    <aside class="sidebar"><div class="sidebar-brand">AI CRM</div><nav id="sidebar-nav"></nav><div id="role-badge" class="role-badge"></div><button id="logout-btn" class="btn btn-secondary logout-btn">Logout</button></aside>
+    <main class="main-content">
+      <div class="page-header"><h1>Notification Log</h1><p>Telegram message delivery history</p></div>
+      <div id="alert"></div>
+      <button class="btn btn-primary" id="test-btn">Send Test Telegram Notification</button>
+      <div class="table-card section-card">
+        <table><thead><tr><th>Time</th><th>Ticket</th><th>Event</th><th>Status</th><th>Message</th><th>Error</th></tr></thead><tbody id="logs"></tbody></table>
+      </div>
+    </main>
+  </div>
+  <script src="/js/api.js"></script><script src="/js/auth.js"></script><script src="/js/common.js"></script>
+  <script>
+    if (!requireAuth()) throw new Error('auth');
+    if (!isManager()) window.location.href = '/dashboard.html';
+    renderSidebar('notifications');
+    async function loadLogs() {
+      const logs = await apiFetch('/api/notifications');
+      document.getElementById('logs').innerHTML = logs.map((l) => `
+        <tr><td>${formatDate(l.sent_at)}</td><td>${l.ticket_id ? `<a href="/ticket-detail.html?id=${l.ticket_id}">#${l.ticket_id}</a>` : '-'}</td><td>${escapeHTML(l.event_type)}</td><td>${escapeHTML(l.status)}</td><td>${escapeHTML(l.message)}</td><td>${escapeHTML(l.error_message || '-')}</td></tr>
+      `).join('') || '<tr><td colspan="6">No notifications logged yet</td></tr>';
+    }
+    document.getElementById('test-btn').onclick = async () => {
+      try {
+        const log = await apiFetch('/api/notifications/test', { method: 'POST' });
+        showAlert('alert', `Test notification ${log.status}`, log.status === 'sent' ? 'success' : 'error');
+        loadLogs();
+      } catch (err) { showAlert('alert', err.message); }
+    };
+    loadLogs();
+  </script>
+</body>
+</html>

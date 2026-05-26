@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chatbot - AI CRM</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="loading-overlay" class="loading-overlay"><div class="spinner"></div></div>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">AI CRM</div>
+      <nav id="sidebar-nav"></nav>
+      <div id="role-badge" class="role-badge"></div>
+      <button id="logout-btn" class="btn btn-secondary logout-btn">Logout</button>
+    </aside>
+    <main class="main-content">
+      <div class="page-header">
+        <h1>AI FAQ Chatbot</h1>
+        <p>Ask questions about the CRM and ticket system</p>
+      </div>
+      <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+          <div class="chat-message assistant">
+            <div class="bubble">Hello! I can help with questions about tickets, customers, statuses, and how to use this CRM. How can I help you?</div>
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" placeholder="Type your question..." autocomplete="off">
+          <button class="btn btn-primary" id="send-btn">Send</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    if (!requireAuth()) throw new Error('auth');
+    renderSidebar('chatbot');
+
+    const messagesEl = document.getElementById('chat-messages');
+    const history = [];
+
+    function appendMessage(role, content) {
+      const div = document.createElement('div');
+      div.className = `chat-message ${role}`;
+      div.innerHTML = `<div class="bubble">${escapeHTML(content)}</div>`;
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendMessage('user', text);
+      history.push({ role: 'user', content: text });
+      input.value = '';
+      document.getElementById('send-btn').disabled = true;
+
+      try {
+        const res = await apiFetch('/api/ai/chat', {
+          method: 'POST',
+          body: JSON.stringify({ message: text, history }),
+        });
+        appendMessage('assistant', res.reply);
+        history.push({ role: 'assistant', content: res.reply });
+      } catch (err) {
+        appendMessage('assistant', 'Error: ' + err.message);
+      } finally {
+        document.getElementById('send-btn').disabled = false;
+      }
+    }
+
+    document.getElementById('send-btn').onclick = sendMessage;
+    document.getElementById('chat-input').onkeypress = (e) => {
+      if (e.key === 'Enter') sendMessage();
+    };
+  </script>
+</body>
+</html>
