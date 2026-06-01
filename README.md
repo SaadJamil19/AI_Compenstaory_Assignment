@@ -2,7 +2,7 @@
 
 Mini Zendesk/Freshdesk-style CRM for managing customers, support tickets, activity logs, AI outputs, dashboards, reports, users, and Telegram notifications.
 
-**Team members:** Add names and student IDs here.
+**Team members:** Saad Jamil, Aon Raza
 
 ## Features Mapped to Requirements
 
@@ -64,7 +64,7 @@ Create `backend\.env`:
 ```env
 SECRET_KEY=change-me-to-a-long-random-string
 GEMINI_API_KEY=
-GEMINI_MODEL=gemini-1.5-flash
+GEMINI_MODEL=gemini-1.5-flash (use 2.5 flash or latest)
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHAT_ID=
 DATABASE_URL=sqlite:///./crm.db
@@ -140,6 +140,8 @@ Create a bot with BotFather, send a message to the bot, get your chat ID, then s
 ```env
 TELEGRAM_BOT_TOKEN=123456:ABC...
 TELEGRAM_CHAT_ID=123456789
+
+(Issues with telegram in pakistan and why the api might not work as intended: https://explorer.ooni.org/findings/324516225200)
 ```
 
 Use the manager-only Notifications page to send a test message. Missing Telegram settings are logged as `skipped`, not treated as app errors.
@@ -218,63 +220,6 @@ docker compose up --build
 
 Then open `http://127.0.0.1:8000/`.
 
-## Screenshots
-
-Place final screenshots in `docs/screenshots/` before submission:
-
-- Login
-- Dashboard
-- Customers
-- Customer profile
-- Tickets
-- Ticket detail
-- AI category/sentiment output
-- AI suggestion
-- AI summary after resolution
-- Notification log
-- Integration Health Check
-- Telegram received message
-
-See:
-
-- `docs/SCREENSHOT_GUIDE.md`
-
-## Demo Checklist
-
-- Manager and agent login work
-- Customer CRUD works for manager; agents cannot delete customers
-- Tickets can be created, assigned, filtered, updated, and commented
-- Activity timeline records creation, comments, status, priority, assignment, AI, notifications
-- Dashboard charts render
-- Manager sees workloads, users, reports, notifications
-- Agent sees assigned tickets
-- Gemini fallback works when key is missing
-- Telegram logs sent, failed, or skipped attempts
-
-For final submission, rerun the demo with real Gemini and Telegram keys so the video shows real AI output and real Telegram delivery.
-
-## Cleanup Verification Before Commit
-
-```powershell
-python scripts/submission_check.py
-git status
-git ls-files | findstr /i ".env crm.db venv __pycache__"
-```
-
-The `git ls-files` command should return no tracked secret, database, virtual environment, or cache files.
-
-## Final Submission Steps
-
-1. Configure real `backend/.env` keys for Gemini and Telegram locally only.
-2. Run the app with `uvicorn main:app --reload --host 127.0.0.1 --port 8000`.
-3. Log in as manager and run `/integrations.html` health checks.
-4. Capture screenshots listed in `docs/SCREENSHOT_GUIDE.md`.
-5. Export the PDF report with `python docs/export_report_pdf.py`.
-6. Run tests with `cd backend` then `pytest`.
-7. Run cleanup check with `python scripts/submission_check.py`.
-8. Push the cleaned GitHub repository.
-9. Record a 3-5 minute demo video showing real AI output and real Telegram delivery.
-10. Submit GitHub URL, `docs/AI_CRM_Project_Report.pdf`, and the demo video.
 
 ## Troubleshooting
 
